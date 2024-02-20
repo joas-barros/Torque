@@ -1,0 +1,20 @@
+{
+    "aileron" : {
+        "areaDaAsa" : 1.4360,
+        "nMax" : 2.33,
+        "peso" : 21.5,
+        "base" : 0.33,
+        "altura" : 0.085
+    },
+    "profundor" : {
+        "ch" : 0.25,
+        "pTotal" : 140.18,
+        "ce" : 0.1
+    },
+    "leme" : {
+        "baseEV" : 0.25,
+        "baseLeme" : 0.085,
+        "altura" : 0.35,
+        "cargaEV" : 24.51
+    }
+}
