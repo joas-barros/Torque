@@ -4,12 +4,12 @@ import pandas as pd
 
 # Importing input data from json file
 def import_input_data():
-    with open('input_data.json') as f:
+    with open('inputs.json') as f:
         data = json.load(f)
     return data
 
 # Torque functions
-def aileron_monoplane(inputs):
+def Aileron_monoplane(inputs):
     area = inputs['aileron']['base'] * inputs['aileron']['height']
 
     xCentroid = inputs['aileron']['base'] / 2
@@ -17,29 +17,29 @@ def aileron_monoplane(inputs):
 
     Cc = inputs['aileron']['height']
 
-    force = (area / inputs['aileron']['wingArea']) * inputs['aileron']['nmax'] * inputs['aileron']['weight']
+    force = (area / inputs['aileron']['wingArea']) * inputs['aileron']['maxLoadFactor'] * inputs['aileron']['weight']
 
     distance = Cc * 100 / 2
 
     return force * distance
 
 
-def aileron_biplane(inputs):
-    return aileron_monoplane(inputs) / 2
+def Aileron_biplane(inputs):
+    return Aileron_monoplane(inputs) / 2
 
 
-def elevator(inputs):
-    horizontalEmpenageLoading = 2 * inputs['elevator']['horizontalEmpennageLoad'] / (inputs['elevator']['horizontalEmpennageChord'] * 9.81)
-    elevatorLoading = horizontalEmpenageLoading * inputs['elevator']['elevatorChord'] / inputs['elevator']['horizontalEmpennageChord']
+def Elevator(inputs):
+    horizontalEmpenageLoading = 2 * inputs['elevator']['horizontalEmpennageLoad'] / (inputs['elevator']['chordHorizontalEmpennage'] * 9.81)
+    elevatorLoading = horizontalEmpenageLoading * inputs['elevator']['chordElevator'] / inputs['elevator']['chordHorizontalEmpennage']
 
-    force = elevatorLoading * inputs['elevator']['elevatorChord'] / 2
+    force = elevatorLoading * inputs['elevator']['chordElevator'] / 2
 
-    distance = inputs['elevator']['elevatorChord'] * 100 / 3
+    distance = inputs['elevator']['chordElevator'] * 100 / 3
 
     return force * distance
 
 
-def rudder(inputs):
+def Rudder(inputs):
     verticalEmpenageArea = inputs['rudder']['verticalEmpennageBase'] * inputs['rudder']['height']
     rudderArea = inputs['rudder']['rudderBase'] * inputs['rudder']['height']
 
@@ -55,9 +55,9 @@ def rudder(inputs):
 def commandTorquesMonoplane():
     inputs = import_input_data()
 
-    aileron = aileron_monoplane(inputs)
-    elevator = elevator(inputs)
-    rudder = rudder(inputs)
+    aileron = Aileron_monoplane(inputs)
+    elevator = Elevator(inputs)
+    rudder = Rudder(inputs)
 
     results = {
         'Torque in Aileron (kgf/cm)': [aileron],
@@ -70,9 +70,9 @@ def commandTorquesMonoplane():
 def commandTorquesBiplane():
     inputs = import_input_data()
 
-    aileron = aileron_biplane(inputs)
-    elevator = elevator(inputs)
-    rudder = rudder(inputs)
+    aileron = Aileron_biplane(inputs)
+    elevator = Elevator(inputs)
+    rudder = Rudder(inputs)
 
     results = {
         'Torque in Aileron (kgf/cm)': [aileron],

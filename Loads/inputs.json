@@ -7,9 +7,9 @@
         "height" : 0.085
     },
     "elevator" : {
-        "horizontalEmpennageChord" : 0.25,
+        "chordHorizontalEmpennage" : 0.25,
         "horizontalEmpennageLoad" : 140.18,
-        "elevatorChord" : 0.1
+        "chordElevator" : 0.1
     },
     "rudder" : {
         "verticalEmpennageBase" : 0.25,
