@@ -10,14 +10,14 @@ def import_input_data():
 
 # Torque functions
 def aileron_monoplane(inputs):
-    area = inputs['aileron']['base'] * inputs['aileron']['altura']
+    area = inputs['aileron']['base'] * inputs['aileron']['height']
 
     xCentroid = inputs['aileron']['base'] / 2
-    yCentroid = inputs['aileron']['altura'] / 2
+    yCentroid = inputs['aileron']['height'] / 2
 
-    Cc = inputs['aileron']['altura']
+    Cc = inputs['aileron']['height']
 
-    force = (area / inputs['asa']['areaDaAsa']) * inputs['asa']['nmax'] * inputs['peso']
+    force = (area / inputs['aileron']['wingArea']) * inputs['aileron']['nmax'] * inputs['aileron']['weight']
 
     distance = Cc * 100 / 2
 
@@ -29,25 +29,25 @@ def aileron_biplane(inputs):
 
 
 def elevator(inputs):
-    horizontalEmpenageLoading = 2 * inputs['profundor']['pTotal'] / (inputs['profundor']['ch'] * 9.81)
-    elevatorLoading = horizontalEmpenageLoading * inputs['profundor']['ce'] / inputs['profundor']['ch']
+    horizontalEmpenageLoading = 2 * inputs['elevator']['horizontalEmpennageLoad'] / (inputs['elevator']['horizontalEmpennageChord'] * 9.81)
+    elevatorLoading = horizontalEmpenageLoading * inputs['elevator']['elevatorChord'] / inputs['elevator']['horizontalEmpennageChord']
 
-    force = elevatorLoading * inputs['profundor']['ce'] / 2
+    force = elevatorLoading * inputs['elevator']['elevatorChord'] / 2
 
-    distance = inputs['profundor']['ce'] * 100 / 3
+    distance = inputs['elevator']['elevatorChord'] * 100 / 3
 
     return force * distance
 
 
 def rudder(inputs):
-    verticalEmpenageArea = inputs['leme']['baseEV'] * inputs['leme']['h']
-    rudderArea = inputs['leme']['baseLeme'] * inputs['leme']['h']
+    verticalEmpenageArea = inputs['rudder']['verticalEmpennageBase'] * inputs['rudder']['height']
+    rudderArea = inputs['rudder']['rudderBase'] * inputs['rudder']['height']
 
     rudderPercentage = rudderArea / verticalEmpenageArea
 
-    force = rudderPercentage * inputs['leme']['cargaEV'] / 9.81
+    force = rudderPercentage * inputs['rudder']['verticalEmpennageLoadUnderBurst'] / 9.81
 
-    distance = inputs['leme']['baseLeme'] * 100 / 2
+    distance = inputs['rudder']['rudderBase'] * 100 / 2
 
     return force * distance
 
