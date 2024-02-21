@@ -60,9 +60,9 @@ def commandTorquesMonoplane():
     rudder = Rudder(inputs)
 
     results = {
-        'Torque in Aileron (kgf/cm)': [aileron],
-        'Torque in Elevator (kgf/cm)': [elevator],
-        'Torque in Rudder (kgf/cm)': [rudder]
+        'Aileron': [aileron],
+        'Elevator': [elevator],
+        'Rudder': [rudder]
     }
 
     return pd.DataFrame(results)
@@ -75,9 +75,9 @@ def commandTorquesBiplane():
     rudder = Rudder(inputs)
 
     results = {
-        'Torque in Aileron (kgf/cm)': [aileron],
-        'Torque in Elevator (kgf/cm)': [elevator],
-        'Torque in Rudder (kgf/cm)': [rudder]
+        'Aileron': [aileron],
+        'Elevator': [elevator],
+        'Rudder': [rudder]
     }
 
     return pd.DataFrame(results)
@@ -85,8 +85,8 @@ def commandTorquesBiplane():
 
 # Exporting results to a json file
 def outputsJson(df):
-    df.to_json('torques.json')
+    df.to_json('torques.json', orient="records")
 
 # Exporting results to a csv file
 def outputsCsv(df):
-    df.to_csv('torques.csv')
+    df.to_csv('torques.csv', index=False)
